@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Image and Button Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+    return const MaterialApp(
       home: HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -28,27 +26,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Image and Button Demo')),
+      appBar: AppBar(title: const Text('Image and Button Demo')),
       body: Stack(
         children: [
           Image.asset(
             showFirstImage ? 'assets/image1.jpg' : 'assets/image2.jpg',
-            fit: BoxFit.cover, 
-            height: double.infinity,
-            width: double.infinity,
-            alignment: Alignment.center,
-          ),
-          Container(
-            color: Colors.black.withOpacity(0.5),
+            fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
           ),
-          Center(
+          Container(color: Colors.black54),
+          const Center(
             child: Text(
               'Welcome to Flutter',
               style: TextStyle(
+                fontSize: 28,
                 color: Colors.white,
-                fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -56,53 +49,31 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('SnackBar shown!')),
+                  const SnackBar(content: Text('SnackBar shown!')),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue,  
-                fixedSize: Size(200, 50), 
-              ),
-              child: Text(
-                'Show SnackBar',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
+              child: const Text('Show SnackBar'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextButton(
               onPressed: () {
+                // TODO: Add navigation here if needed
               },
-              style: TextButton.styleFrom(
-                primary: Colors.green,  
-                fixedSize: Size(200, 50),  
-              ),
-              child: Text(
-                'Go to Second Screen',
-                style: TextStyle(fontSize: 16),
-              ),
+              child: const Text('Go to Second Screen'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             OutlinedButton(
               onPressed: () {
-                setState(() {
-                  showFirstImage = !showFirstImage; 
-                });
+                setState(() => showFirstImage = !showFirstImage);
               },
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.black),
-                fixedSize: Size(200, 50), 
-              ),
-              child: Text(
-                'Toggle Image',
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              ),
+              child: const Text('Toggle Image'),
             ),
           ],
         ),

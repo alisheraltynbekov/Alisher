@@ -1,122 +1,91 @@
-import &#39;package:flutter/material.dart&#39;;
+import 'package:flutter/material.dart';
 
-void main() {
-runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-const MyApp({super.key});
+  const MyApp({super.key});
 
-@override
-Widget build(BuildContext context) {
-return MaterialApp(
-title: &#39;Flutter Navigation Demo&#39;,
-initialRoute: &#39;/&#39;,
-routes: {
-&#39;/&#39;: (context) =&gt; const HomeScreen(),
-&#39;/second&#39;: (context) =&gt; const SecondScreen(),
-&#39;/third&#39;: (context) =&gt; const ThirdScreen(),
-},
-);
-}
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/second': (context) => const SecondScreen(),
+        '/third': (context) => const ThirdScreen(),
+      },
+    );
+  }
 }
 
 class HomeScreen extends StatelessWidget {
-const HomeScreen({super.key});
+  const HomeScreen({super.key});
 
-@override
-Widget build(BuildContext context) {
-return Scaffold(
-appBar: AppBar(title: const Text(&#39;Home Screen&#39;)),
-
-body: Center(
-child: SingleChildScrollView(
-child: Column(
-mainAxisAlignment: MainAxisAlignment.center,
-children: [
-ElevatedButton(
-onPressed: () =&gt; Navigator.push(
-context,
-MaterialPageRoute(builder: (context) =&gt; const SecondScreen()),
-),
-child: const Text(&#39;Push to Second&#39;),
-),
-ElevatedButton(
-onPressed: () =&gt; Navigator.pushNamed(context, &#39;/second&#39;),
-child: const Text(&#39;PushNamed to Second&#39;),
-),
-ElevatedButton(
-onPressed: () =&gt; Navigator.pushReplacement(
-context,
-MaterialPageRoute(builder: (context) =&gt; const SecondScreen()),
-),
-child: const Text(&#39;PushReplacement to Second&#39;),
-),
-ElevatedButton(
-onPressed: () =&gt; Navigator.pushAndRemoveUntil(
-context,
-MaterialPageRoute(builder: (context) =&gt; const SecondScreen()),
-(Route&lt;dynamic&gt; route) =&gt; false,
-),
-child: const Text(&#39;PushAndRemoveUntil to Second&#39;),
-
-),
-ElevatedButton(
-onPressed: () =&gt; Navigator.pushNamedAndRemoveUntil(
-context,
-&#39;/second&#39;,
-(Route&lt;dynamic&gt; route) =&gt; false,
-),
-child: const Text(&#39;PushNamedAndRemoveUntil to Second&#39;),
-),
-],
-),
-),
-),
-);
-}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Home Screen')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/second'),
+              child: const Text('Go to Second'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SecondScreen()),
+              ),
+              child: const Text('Go to Second (push)'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class SecondScreen extends StatelessWidget {
-const SecondScreen({super.key});
+  const SecondScreen({super.key});
 
-@override
-Widget build(BuildContext context) {
-return Scaffold(
-appBar: AppBar(title: const Text(&#39;Second Screen&#39;)),
-body: Center(
-child: Column(
-mainAxisAlignment: MainAxisAlignment.center,
-children: [
-ElevatedButton(
-onPressed: () =&gt; Navigator.pop(context),
-
-child: const Text(&#39;Pop to Previous&#39;),
-),
-ElevatedButton(
-onPressed: () =&gt; Navigator.popAndPushNamed(context, &#39;/third&#39;),
-child: const Text(&#39;PopAndPushNamed to Third&#39;),
-),
-],
-),
-),
-);
-}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Second Screen')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Back to Home'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/third'),
+              child: const Text('Go to Third'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class ThirdScreen extends StatelessWidget {
-const ThirdScreen({super.key});
+  const ThirdScreen({super.key});
 
-@override
-Widget build(BuildContext context) {
-return Scaffold(
-appBar: AppBar(title: const Text(&#39;Third Screen&#39;)),
-body: Center(
-child: ElevatedButton(
-onPressed: () =&gt; Navigator.pop(context),
-child: const Text(&#39;Back to Previous&#39;),
-),
-),
-);
-}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Third Screen')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Back to Second'),
+        ),
+      ),
+    );
+  }
 }
